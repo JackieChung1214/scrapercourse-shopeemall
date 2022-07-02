@@ -16,3 +16,4 @@ for card in cards:
     price=card.find_element(By.CSS_SELECTOR,"span[class='ZEgDH9']").text
     link=card.find_element(By.TAG_NAME,"a").get_attribute('href')
     items.append((title,price,link))
+print(items)
