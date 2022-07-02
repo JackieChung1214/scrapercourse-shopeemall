@@ -3,6 +3,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import time 
 from selenium.webdriver.common.action_chains import ActionChains
+#引用模組
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 driver=webdriver.Chrome(ChromeDriverManager().install())
 
@@ -10,9 +13,15 @@ for page in range(1,3):
 
 
     driver.get(f'https://shopee.tw/mall/%E5%B1%85%E5%AE%B6%E7%94%9F%E6%B4%BB-cat.11040925/popular?pageNumber={page}')
-    time.sleep(5)
+    #time.sleep(5)
 
     ActionChains(driver).move_by_offset(100,100).click().perform()
+
+    locator=(By.CSS_SELECTOR,"div[class='col-xs-2 recommend-products-by-view__item-card-wrapper']")
+    WebDriverWait(driver,10).until(
+        EC.presence_of_element_located(locator),
+        "找不到指定元素"
+    )
 
     cards=driver.find_elements(By.CSS_SELECTOR,"div[class='col-xs-2 recommend-products-by-view__item-card-wrapper']")
 
